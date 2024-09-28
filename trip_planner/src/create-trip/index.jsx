@@ -21,6 +21,11 @@ import { FcGoogle } from "react-icons/fc";
 import { useGoogleLogin } from "@react-oauth/google";
 import axios from 'axios';
 // import { l } from "vite/dist/node/types.d-aGj9QkWt";
+import { AI_PROMPT } from "@/constants/option";
+import { doc, setDoc } from "firebase/firestore";
+import { db } from "@/service/firebaseconfig";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
+
 
 
 
@@ -29,6 +34,8 @@ function CreateTrip() {
 
   const [formData,setFormData]=useState([]);
   const [openDailog,setOpenDialog]=useState(false);
+
+  const[loading,setLoading]=useState(false);
 
   const handleInputChange=(name,value)=>{
     // if(name=='noOfDays' && value>5){
@@ -62,10 +69,11 @@ function CreateTrip() {
       setOpenDialog(true)
       return;
     }
-    if(formData?.noOfDays>5&&!formData?.location ||!formData?.budget||!traveller){
+    if(formData?.noOfDays>5&&!formData?.location ||!formData?.budget||!formData?.traveller){
       toast("please fill  all details")
       return;
     }
+    setLoading(true);
     const FINAL_PROMPT=AI_PROMPT
     .replace('{location}',formData?.location?.label)
     .replace('{totalDays}',formData?.noOfDays)
@@ -73,12 +81,30 @@ function CreateTrip() {
     .replace('{budget}',formData?.budget)
     .replace('{totalDays}',formData?.noOfDays)
     
-    console.log(FINAL_PROMPT);
+    // console.log(FINAL_PROMPT);
     
     const result=await chatSession.sendMessage(FINAL_PROMPT);
     console.log(result?.response?.text());
+    setLoading(false);
+    SaveAiTrip(result?.response?.text())
     
   }
+
+  const SaveAiTrip=async(TripData)=>{
+    setLoading(true);
+    const user =JSON.parse(localStorage.getItem('user'));
+    const docId=Date.now().toString()
+    
+    // Add a new document in collection "cities"
+      await setDoc(doc(db, "AITrips", docId), {
+        userSelection:formData,
+        TripData:JSON.parse(TripData),
+        userEmail:user?.email,
+        id:docId  
+        });
+        setLoading(false);
+
+     }
 
   const GetUserProfile=(tokenInfo)=>{
     axios.get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${tokenInfo.access_token}`,{
@@ -88,9 +114,9 @@ function CreateTrip() {
       }
     }).then((resp)=>{
       console.log(resp);
-      localStorage.setItem('user',JSON.stringify(resp.data));
-      setOpenDialog(false)
-      OnGenerateTrip()
+      // localStorage.setItem('user',JSON.stringify(resp.data));
+      // setOpenDialog(false)
+      // OnGenerateTrip()
       
     })
   }
@@ -137,11 +163,10 @@ function CreateTrip() {
               onChange: (v) => { setplace(v); handleInputChange('location',v) }
             }}
           /> */
-          <Input placeholder={'ex.paris'} type="text" 
-          selectProps={{
-            place,
-            onChange: (v) => { setplace(v); handleInputChange('location',v) }
-          }}
+          // ***mera
+          <Input placeholder={'ex.paris'} type="text" onChange={(e)=>handleInputChange
+            ('desination',e.target.value)
+          }
           />
           }
         </div>
@@ -189,7 +214,13 @@ function CreateTrip() {
 
       </div>
       <div className="my-10 justify-end flex">
-      <Button onClick={OnGenerateTrip}>generate trip</Button>
+      <Button
+      disabled={loading}
+      onClick={OnGenerateTrip}>
+        {loading?
+        <AiOutlineLoading3Quarters className="h-7 w-7 animate-spin" />:'generate trip'
+        }
+        </Button>
       </div>
 
       <Dialog open={openDailog}>
@@ -202,7 +233,13 @@ function CreateTrip() {
         <h2 className="font-bold text-lg mt-7">sign in with google</h2>
         <p >sign in with to the site with google authentication security</p>
 
-        <Button onClick={login} className="w-full mt-5 flex gap-4 items-center"><FcGoogle className="h-7 w-7" />sign in with google</Button>
+        <Button
+        
+        onClick={login} className="w-full mt-5 flex gap-4 items-center">
+          
+          <FcGoogle className="h-7 w-7" />sign in with google
+          
+          </Button>
       </DialogDescription>
     </DialogHeader>
   </DialogContent>
