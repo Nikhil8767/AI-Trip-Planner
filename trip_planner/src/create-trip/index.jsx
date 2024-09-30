@@ -25,6 +25,7 @@ import { AI_PROMPT } from "@/constants/option";
 import { doc, setDoc } from "firebase/firestore";
 import { db } from "@/service/firebaseconfig";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import { useNavigate } from "react-router-dom";
 
 
 
@@ -36,6 +37,8 @@ function CreateTrip() {
   const [openDailog,setOpenDialog]=useState(false);
 
   const[loading,setLoading]=useState(false);
+
+  const navigate=useNavigate();
 
   const handleInputChange=(name,value)=>{
     // if(name=='noOfDays' && value>5){
@@ -103,6 +106,7 @@ function CreateTrip() {
         id:docId  
         });
         setLoading(false);
+        navigate('/view-trip/'+docId)
 
      }
 
@@ -156,19 +160,35 @@ function CreateTrip() {
       <div className='mt-20 flex flex-col gap-10'>
         <div>
           <h2 className='text-xl my-3 font-medium'>What is destination of choice ?</h2>
-          {/* <GooglePlacesAutocomplete
+          
+{/* <GooglePlacesAutocomplete
             apiKey={import.meta.env.VITE_GOOGLE_PLACE_API_KEY}
             selectProps={{
-              place,
-              onChange: (v) => { setplace(v); handleInputChange('location',v) }
+              value: place,
+              onChange: (value) => {
+                setplace(value);
+                handleInputChange('location', value);
+              },
             }}
-          /> */
-          // ***mera
-          <Input placeholder={'ex.paris'} type="text" onChange={(e)=>handleInputChange
-            ('desination',e.target.value)
+          /> */}
+
+
+
+
+
+
+
+
+
+
+
+
+           {/* ***mera */}
+           <Input placeholder={'ex.paris'} type="text" onChange={(e)=>handleInputChange
+             ('location',e.target.value)
           }
           />
-          }
+          
         </div>
         <div>
           <h2 className='text-xl my-3 font-medium'>how many days are you planning for the trip?</h2>
