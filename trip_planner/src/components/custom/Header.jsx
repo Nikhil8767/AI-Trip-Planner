@@ -53,7 +53,7 @@ function Header() {
   }
   return (
     <div className='p-3 shadow-sm flex justify-between items-center p-5'>
-        <img src="/logo.svg" alt="" />
+        <img src="/logo1.svg" alt="" className='h-[100px] w-[130px]' />
         <div>
 
         </div>

@@ -15,6 +15,7 @@ function Hero() {
         </p>
         <Link to={'/create-trip'}>
         <Button>get Started! its free</Button>
+        
         </Link>
     </div>
   )
