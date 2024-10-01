@@ -9,7 +9,7 @@ function PlaceCardItem({place}) {
     // <Link to={'https://www.google.com/maps/search/?api=1&query=centurylink+field'+place?.placeName} target='_blank'>
     <Link
       to={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(place?.placeName)}`}
-      target='_blank'
+      target='_blank' className='text-black'
     >
     <div className='border rounded-xl p-3 mt-3 flex gap-5 hover:scale-105 transition-all
     hover:shadow-md cursor-pointer'>

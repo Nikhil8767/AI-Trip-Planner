@@ -60,13 +60,18 @@ function Header() {
         <div>
             {user?
             <div className='flex items-center gap-5'>
-              <Button variant="outline" className="rounded-full">My Trips</Button>
+              <a href="/create-trip">
+              <Button variant="outline" className="rounded-full text-black">+ Create Trips</Button>
+              </a>
+              <a href="/my-trips">
+              <Button variant="outline" className="rounded-full text-black">My Trips</Button>
+              </a>
               <Popover>
-            <PopoverTrigger>
+            <PopoverTrigger className='bg-transparent'>
             <img src={user?.picture} alt="image" className='h-[35px] w-[35px] rounded-full' />
 
             </PopoverTrigger>
-            <PopoverContent>
+            <PopoverContent >
               <h2 className='cursor-pointer' onClick={()=>{
                 googleLogout();
                 localStorage.clear();

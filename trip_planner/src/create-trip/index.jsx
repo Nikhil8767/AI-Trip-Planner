@@ -78,7 +78,7 @@ function CreateTrip() {
     }
     setLoading(true);
     const FINAL_PROMPT=AI_PROMPT
-    .replace('{location}',formData?.location?.label)
+    .replace('{location}',formData?.location)
     .replace('{totalDays}',formData?.noOfDays)
     .replace('{traveller}',formData?.traveller)
     .replace('{budget}',formData?.budget)
@@ -118,9 +118,9 @@ function CreateTrip() {
       }
     }).then((resp)=>{
       console.log(resp);
-      // localStorage.setItem('user',JSON.stringify(resp.data));
-      // setOpenDialog(false)
-      // OnGenerateTrip()
+      localStorage.setItem('user',JSON.stringify(resp.data));
+      setOpenDialog(false);
+      OnGenerateTrip();
       
     })
   }
@@ -152,7 +152,7 @@ function CreateTrip() {
   // *******************************************************
 
   return (
-    <div className='sm:px-10 md:px-32 lg:px-56 xl:px-10 px-5 mt-10 ml-60 '>
+    <div className='sm:px-10 md:px-32 lg:px-56 xl:px-72 px-5 mt-10  '>
       <h2 className='font-bold text-3xl'>Tell us your travel preference</h2>
       <p className='mt-3 text-gray-500 text-xl'>just provide some basic information ,and our trip planner will generate
         a customized itinerary based on your preference
