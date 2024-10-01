@@ -12,7 +12,7 @@ AI Trip Planner is a web-based application that allows users to generate customi
 - **Firebase Integration**: Store generated trips in Firebase Firestore.
 
   ### 1. Home Page
-  ![Home Page]("C:\Users\Hp\Desktop\backend projects\tourist\trip_planner\public\landing page.png")
+  ![Home Page](".C:/Users/Hp/Desktop/backend projects/tourist/trip_planner/public/landing page.png")
 
 ## Tech Stack
 
