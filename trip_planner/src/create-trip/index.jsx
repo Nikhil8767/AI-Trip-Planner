@@ -2,7 +2,8 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input"
 import { SelectBudgetOption, SelectTravelsList } from "@/constants/option";
-import {chatSession}  from "@/service/AImodel.jsx";
+import {chatSession}  from "../service/AIModel.jsx";
+
 
 import React, { useEffect } from 'react'
 import { useState } from 'react';
