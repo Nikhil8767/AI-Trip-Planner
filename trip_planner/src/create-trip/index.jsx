@@ -2,20 +2,19 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input"
 import { SelectBudgetOption, SelectTravelsList } from "@/constants/option";
-import { chatSession } from "@/service/AImodel";
+import {chatSession}  from "@/service/AImodel.jsx";
 
 import React, { useEffect } from 'react'
 import { useState } from 'react';
 // import TextField from '@mui/material/TextField'; 
-import GooglePlacesAutocomplete from 'react-google-places-autocomplete'
+// import GooglePlacesAutocomplete from 'react-google-places-autocomplete'
 import { toast } from "sonner";
 import {
   Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
-  DialogTitle,
-  DialogTrigger,
+  
 } from "@/components/ui/dialog"
 import { FcGoogle } from "react-icons/fc";
 import { useGoogleLogin } from "@react-oauth/google";
@@ -31,7 +30,7 @@ import { useNavigate } from "react-router-dom";
 
 
 function CreateTrip() {
-  const [place, setplace] = useState();
+  // const [place, setplace] = useState();
 
   const [formData,setFormData]=useState([]);
   const [openDailog,setOpenDialog]=useState(false);
