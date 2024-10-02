@@ -22,7 +22,7 @@ import axios from 'axios';
 // import { l } from "vite/dist/node/types.d-aGj9QkWt";
 import { AI_PROMPT } from "@/constants/option";
 import { doc, setDoc } from "firebase/firestore";
-import { db } from "@/service/firebaseconfig";
+import { db } from "@/service/firebaseconfig.jsx";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 
