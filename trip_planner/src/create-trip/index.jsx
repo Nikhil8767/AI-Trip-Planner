@@ -62,7 +62,8 @@ function CreateTrip() {
 
   const login=useGoogleLogin({
     onSuccess:(codeResp)=>GetUserProfile(codeResp),
-    onError:(error)=>console.log(error)
+    onError:(error)=>console.log(error),
+    redirectUri: 'http://localhost:5173', 
     
     
   })
